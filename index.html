@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Dashboard</title>
+  <link rel="stylesheet" href="./static/css/style.css">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./static/js/app.js"></script>
+</head>
+<body>
+  <h1>Restaurant Dashboard</h1>
+
+  <div class="container">
+    <div class="dropdown">
+      <label for="selRestaurantType">Select Restaurant Type:</label>
+      <select id="selRestaurantType"></select>
+    </div>
+
+    <div class="dashboard">
+      <h2>Restaurant List</h2>
+      <div class="restaurant-list"></div>
+      
+      <div class="charts">
+        <h2>Rating Distribution</h2>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load the JSON data
+    d3.json("restaurant_week_2018_final.json").then(function(data) {
+      // Get the unique restaurant types
+      const restaurantTypes = [...new Set(data.map(restaurant => restaurant.restaurant_type))];
+
+      // Populate the restaurant type dropdown
+      const dropdown = d3.select("#selRestaurantType");
+      dropdown.selectAll("option")
+        .data(restaurantTypes)
+        .enter()
+        .append("option")
+        .text(d => d);
+
+      // Update the dashboard based on the selected restaurant type
+      function updateDashboard(restaurantType) {
+        // Filter restaurants based on the selected restaurant type
+        const filteredRestaurants = data.filter(restaurant => restaurant.restaurant_type === restaurantType);
+
+        // Clear the previous content
+        const restaurantList = d3.select(".restaurant-list");
+        restaurantList.html("");
+
+        if (filteredRestaurants.length > 0) {
+          // Display the restaurants in separate boxes side by side
+          const restaurantBoxes = restaurantList.selectAll(".restaurant-box")
+            .data(filteredRestaurants)
+            .enter()
+            .append("div")
+            .attr("class", "restaurant-box");
+
+          // Add restaurant information to each box
+          restaurantBoxes.each(function(restaurant) {
+            const box = d3.select(this);
+
+            // Restaurant name
+            box.append("h3")
+              .text(restaurant.name);
+
+            // Restaurant rating
+            box.append("p")
+              .text("Average Rating: " + restaurant.average_rating);
+
+            // Restaurant phone number
+            box.append("p")
+              .text("Phone: " + restaurant.phone);
+
+            // Restaurant website
+            box.append("p")
+              .text("Website: " + restaurant.website);
+          });
+        } else {
+          // Display a message if no restaurants of the selected type are found
+          restaurantList.html("<p>No restaurants found for the selected type.</p>");
+        }
+
+        // Generate the data for the bar chart
+        const ratings = filteredRestaurants.map(restaurant => restaurant.average_rating);
+
+        // Clear the previous chart if it exists
+        const chartContainer = document.getElementById("barChart");
+        if (chartContainer) {
+          chartContainer.innerHTML = "";
+        }
+
+        // Create the bar chart using Chart.js
+        const ctx = document.createElement("canvas");
+        chartContainer.appendChild(ctx);
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: filteredRestaurants.map(restaurant => restaurant.name),
+            datasets: [
+              {
+                label: "Ratings",
+                data: ratings,
+                backgroundColor: "rgba(54, 162, 235, 0.7)", // Specify the color of the bars
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 5, // Set the maximum value for the y-axis
+              }
+            }
+          }
+        });
+      }
+
+      // Add event listener to the dropdown
+      dropdown.on("change", function() {
+        const restaurantType = this.value;
+        updateDashboard(restaurantType);
+      });
+
+      // Initialize the dashboard with the first restaurant type
+      const initialRestaurantType = restaurantTypes[0];
+      dropdown.property("value", initialRestaurantType);
+      updateDashboard(initialRestaurantType);
+    });
+  </script>
+</body>
+</html>
