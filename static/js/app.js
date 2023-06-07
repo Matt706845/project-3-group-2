@@ -14,15 +14,16 @@ d3.json("restaurant_week_2018_final.json").then(function(data) {
     // Update the dashboard based on the selected restaurant type
     function updateDashboard(restaurantType) {
       // Filter restaurants based on the selected restaurant type
-      const filteredRestaurants = data.filter(restaurant => restaurant.restaurant_type === restaurantType);
+      var filteredRestaurants = data.filter(restaurant => restaurant.restaurant_type === restaurantType);
   
       // Clear the previous content
-      const restaurantList = d3.select("#restaurantList");
+      var restaurantList = d3.select("#restaurant-list");
+      console.log(restaurantList);
       restaurantList.html("");
   
       if (filteredRestaurants.length > 0) {
         // Display the restaurant names and ratings
-        const restaurantBoxes = restaurantList.selectAll(".restaurant-box")
+        var restaurantBoxes = restaurantList.selectAll(".restaurant-box")
           .data(filteredRestaurants)
           .enter()
           .append("div")
@@ -35,9 +36,9 @@ d3.json("restaurant_week_2018_final.json").then(function(data) {
           .html(d => `Average Rating: ${d.average_rating}`);
   
         // Prepare data for the bar chart
-        const ratings = filteredRestaurants.map(restaurant => restaurant.average_rating);
-        const colors = ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(255, 205, 86, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'];
-        const chartData = {
+        var ratings = filteredRestaurants.map(restaurant => restaurant.average_rating);
+        var colors = ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(255, 205, 86, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'];
+        var chartData = {
           labels: filteredRestaurants.map(restaurant => restaurant.name),
           datasets: [{
             label: "Average Rating",
@@ -49,7 +50,7 @@ d3.json("restaurant_week_2018_final.json").then(function(data) {
         };
   
         // Clear previous chart
-        const barChart = document.getElementById("barChart").getContext("2d");
+        var barChart = document.getElementById("barChart").getContext("2d");
         if (window.barChartInstance) {
           window.barChartInstance.destroy();
         }
@@ -82,15 +83,16 @@ d3.json("restaurant_week_2018_final.json").then(function(data) {
         restaurantList.html("<p>No restaurants found for the selected type.</p>");
       }
     }
-  
+    console.log(dropdown);
     // Add the change event listener to the dropdown
-    dropdown.on("change", function() {
-      const selectedRestaurantType = d3.select(this).property("value");
+    dropdown.on("change", function(event) {
+      var selectedRestaurantType = d3.select(this).property("value");
+      console.log(selectedRestaurantType);
       updateDashboard(selectedRestaurantType);
     });
   
     // Initialize the dashboard with the first restaurant type
-    const initialRestaurantType = restaurantTypes[0];
+    var initialRestaurantType = restaurantTypes[0];
     dropdown.property("value", initialRestaurantType);
     updateDashboard(initialRestaurantType);
   }).catch(function(error) {
