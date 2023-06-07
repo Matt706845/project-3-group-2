@@ -18,3 +18,5 @@ CREATE TABLE restaurants (
   longitude NUMERIC(9, 6),
   postal_code VARCHAR(20)
 );
+
+Alter table restaurants add column id serial primary key;
