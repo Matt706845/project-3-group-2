@@ -1,6 +1,6 @@
+
 // Load the API data
 var queryURL = "http://127.0.0.1:5000/restaurants"
-
 d3.json(queryURL).then(function(data) {
     // Get the unique restaurant types
     const restaurantTypes = [...new Set(data.map(restaurant => restaurant.restaurant_type))];
@@ -80,6 +80,48 @@ d3.json(queryURL).then(function(data) {
             }
           }
         });
+
+        // Prepare data for the food review chart
+var foodReviews = filteredRestaurants.map(restaurant => restaurant.food_review);
+var foodReviewColors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 205, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'];
+var foodReviewChartData = {
+  labels: filteredRestaurants.map(restaurant => restaurant.name),
+  datasets: [{
+    label: "Food Reviews",
+    data: foodReviews,
+    backgroundColor: foodReviewColors.slice(0, filteredRestaurants.length),
+    borderColor: foodReviewColors.slice(0, filteredRestaurants.length).map(color => color.replace('0.5', '1')),
+    borderWidth: 1
+  }]
+};
+// Clear previous food review chart
+var foodReviewChart = document.getElementById("foodReviewChart").getContext("2d");
+if (window.foodReviewChartInstance) {
+  window.foodReviewChartInstance.destroy();
+}
+// Create the food review chart
+window.foodReviewChartInstance = new Chart(foodReviewChart, {
+  type: "bar",
+  data: foodReviewChartData,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 10,
+        stepSize: 1
+      }
+    },
+    plugins: {
+      legend: {
+        display: false
+      },
+      title: {
+        display: true,
+        text: "Food Reviews by Restaurant"
+      }
+    }
+  }
+});
       } else {
         // Display a message if no restaurants of the selected type are found
         restaurantList.html("<p>No restaurants found for the selected type.</p>");
@@ -102,17 +144,13 @@ d3.json(queryURL).then(function(data) {
   });
 
 
-
   // Mapping the restaurant
   
-
 // Store our API endpoint as queryUrl.
 var queryURL = "http://127.0.0.1:5000/restaurants"
 
-
 // Perform a GET request to the query URL/
 d3.json(queryURL).then(function(data) {
-
 
     // Create the base layers.
     var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -123,9 +161,7 @@ d3.json(queryURL).then(function(data) {
       attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
     });
 
-
   var restaurants = new L.LayerGroup();
-
   // Create a baseMaps object.
   var baseMaps = {
       "Street Map": street,
@@ -140,7 +176,7 @@ d3.json(queryURL).then(function(data) {
     // Create our map, giving it the streetmap and earthquakes layers to display on load.
     var myMap = L.map("map", {
       center: [40.71, -74],
-      zoom: 7,
+      zoom: 13,
       layers: [street, restaurants]
     });
           
@@ -150,9 +186,7 @@ d3.json(queryURL).then(function(data) {
     L.control.layers(baseMaps, overlayMaps, {
       collapsed: false
     }).addTo(myMap);
-
     
-
 // Looping through the cities array, create one marker for each city, bind a popup containing its name and population, and add it to the map.
 for (var i = 0; i < data.length; i++) {
   var restaurant = data[i];
@@ -161,12 +195,9 @@ for (var i = 0; i < data.length; i++) {
     .bindPopup(`<h1>${restaurant.name}</h1> <hr> <h3>Restaurant Type: ${restaurant.restaurant_type}</h3>`)
     .addTo(restaurants);
 }
-
 restaurants.addTo(myMap);
 
-
 });
-
 
 
   
