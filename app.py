@@ -1,9 +1,12 @@
 # Import the necessary modules
 from flask import Flask, jsonify
 import psycopg2
+from flask_cors import CORS, cross_origin
 
 # Create a Flask application
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Define the route to fetch all restaurants
 @app.route('/restaurants', methods=['GET'])
