@@ -1,5 +1,7 @@
-// Load the JSON data
-d3.json("restaurant_week_2018_final.json").then(function(data) {
+// Load the API data
+var queryURL = "http://127.0.0.1:5000/restaurants"
+
+d3.json(queryURL).then(function(data) {
     // Get the unique restaurant types
     const restaurantTypes = [...new Set(data.map(restaurant => restaurant.restaurant_type))];
   
