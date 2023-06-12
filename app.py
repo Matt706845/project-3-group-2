@@ -19,7 +19,7 @@ def get_restaurants():
             database='restaurant_data',
             user='postgres',
             # update to your PG Admin server password
-            password='541839'
+            password='alohomora'
         )
         
         # Create a cursor object to execute SQL queries
