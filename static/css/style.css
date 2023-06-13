@@ -1,4 +1,6 @@
-.container1 {
+body {
+
+  font-family: Helvetica;
   background-image: url("https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
  
   background-position: center;
@@ -7,15 +9,20 @@
   height: 55vh; /* Set the height to 55% of the viewport height */
   margin-bottom: 200px;
   background-size: cover;
+  min-height: 550px;
+}
 
-  max-width: 900px;
+.container {
+  background-color: #ffffff8f;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
 }
-.container2 {
-  background-color: #ffffffe6;
-}
 
+.charts {
+  background-color: #ffffff;
+  padding: 20px;
+}
 
 .dropdown {
   margin-bottom: 20px;
@@ -25,6 +32,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+canvas {
+  border: 1px solid #ddd;
+  padding: 20px;
 }
 
 .restaurant-box {
@@ -57,13 +69,15 @@
 .chart-container {
   width: 200px;
   height: 100px;
+  background-color: #ffffff;
 }
 
 h1 {
   text-align: center;
   color: black;
   background-color: white;
-  border: 1px solid black;
+  height: 40px;
+  /* border: 1px solid black; */
   padding: 10px;
 }
 
@@ -72,12 +86,19 @@ h2 {
   background-color: white;
   color: black;
   padding: 5px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 #restaurantList {
   text-align: center;
 }
+
+#map {
+  position: center;
+  height: 750px;
+  width: 1000px;
+}
+
 
 .dropdown {
   position: absolute;
