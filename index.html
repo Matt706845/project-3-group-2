@@ -26,36 +26,42 @@
 </head>
 
 <body>
+
   <h1>Restaurant Dashboard</h1>
 
-  <div class="container1">
+  <div class="container">
+
     <div class="dropdown">
       <label for="selRestaurantType">Select Restaurant Type:</label>
       <select id="selRestaurantType"></select>
     </div>
+    
     <div class="dashboard">
       <h2>Restaurant List</h2>
       <div id="restaurant-list"></div>
-  
-  </div>
+    </div>
 
   <!-- The div that holds our charts -->
-  <div class="container2">
+      <br/>
       <div class="charts">
         <h2>Rating Distribution</h2>
         <canvas id="barChart"></canvas>
       </div>
 
+      <br/>
       <div class="charts">
         <h2>Food Reviews</h2>
         <canvas id="foodReviewChart"></canvas>
       </div>
-  </div>
   
   <!-- The div that holds our map -->
-  <div class="container3"></div>
-    <h2>Restaurant Location</h2>
-    <div id="map" style="height: 800px; width: 1200px"></div>
+      <div class="restaurantLocation">
+        <br/> 
+        <h2>Restaurant Location</h2>
+        <div id="map"></div>
+        <br/>
+      </div>
+  
   </div>
 
 </body>
