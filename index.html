@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,42 +10,54 @@
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
- <!-- Leaflet CSS -->
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
- integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
- crossorigin="" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin="" />
 
- <!-- Leaflet JS -->
- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
- integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
- crossorigin=""></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
 
   <script src="./static/js/app.js"></script>
   <!-- <script src="./static/js/logic.js"></script> -->
 
 </head>
+
 <body>
   <h1>Restaurant Dashboard</h1>
 
-  <div class="container">
+  <div class="container1">
     <div class="dropdown">
       <label for="selRestaurantType">Select Restaurant Type:</label>
       <select id="selRestaurantType"></select>
     </div>
-
     <div class="dashboard">
       <h2>Restaurant List</h2>
       <div id="restaurant-list"></div>
-      
+  
+  </div>
+
+  <!-- The div that holds our charts -->
+  <div class="container2">
       <div class="charts">
         <h2>Rating Distribution</h2>
         <canvas id="barChart"></canvas>
       </div>
-    </div>
 
+      <div class="charts">
+        <h2>Food Reviews</h2>
+        <canvas id="foodReviewChart"></canvas>
+      </div>
   </div>
-   <!-- The div that holds our map -->
- <div id="map" style="height: 800px; width: 1200px"></div>
+  
+  <!-- The div that holds our map -->
+  <div class="container3"></div>
+    <h2>Restaurant Location</h2>
+    <div id="map" style="height: 800px; width: 1200px"></div>
+  </div>
+
 </body>
 
 </html>
