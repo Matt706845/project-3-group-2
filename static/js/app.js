@@ -5,9 +5,14 @@ var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 
+var topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+  attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
 // Create a baseMaps object.
 var baseMaps = {
-  "Street Map": street
+  "Street Map": street,
+  "Topographic Map": topo
 };
 
 // Create an overlay object to hold our overlay.
@@ -47,12 +52,12 @@ var overlayMaps = {
         console.log(restaurant)
         
         var restaurantMarker = L.marker([restaurant.latitude, restaurant.longitude])
-          .bindPopup(`<h1>${restaurant.name}</h1> <hr> <h3>Restaurant Type: ${restaurant.restaurant_type}</h3>`);
+          .bindPopup(`<h2>${restaurant.name}</h2><p>Restaurant Type:  ${restaurant.restaurant_type}</p><p>Phone:  ${restaurant.phone}</p><p>Address:  ${restaurant.street_address}</p>`);
         
         restaurantMarkers.push(restaurantMarker);
         }
-      // createMap(L.layerGroup(restaurantMarkers));
-      restaurantMarkers.addTo(myMap);
+      createMap(L.layerGroup(restaurantMarkers));
+      // restaurantMarkers.addTo(myMap);
     }; 
 
 // Load the API data
@@ -165,7 +170,7 @@ d3.json(queryURL).then(function(data) {
             scales: {
               y: {
                 beginAtZero: true,
-                max: 10,
+                max: 5,
                 stepSize: 1
               }
             },
