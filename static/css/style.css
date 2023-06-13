@@ -1,8 +1,21 @@
-.container {
+.container1 {
+  background-image: url("https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+ 
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Adjust the value as needed to lower the picture */
+  height: 55vh; /* Set the height to 55% of the viewport height */
+  margin-bottom: 200px;
+  background-size: cover;
+
   max-width: 900px;
   margin: 0 auto;
   padding: 20px;
 }
+.container2 {
+  background-color: #ffffffe6;
+}
+
 
 .dropdown {
   margin-bottom: 20px;
@@ -48,10 +61,18 @@
 
 h1 {
   text-align: center;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px;
 }
 
 h2 {
   text-align: center;
+  background-color: white;
+  color: black;
+  padding: 5px;
+  border: 1px solid black;
 }
 
 #restaurantList {
